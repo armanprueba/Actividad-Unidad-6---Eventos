@@ -1,14 +1,17 @@
 import { Component } from '@angular/core';
 import { Evento } from '../intefaces/evento';
 import { DatePipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { EventoFilterPipe } from '../pipes/evento-filter-pipe';
 @Component({
   selector: 'app-eventos-show',
-  imports: [DatePipe],
+  imports: [DatePipe, FormsModule, EventoFilterPipe],
   templateUrl: './eventos-show.html',
   styleUrl: './eventos-show.css',
 })
 
 export class EventosShow {
+  filterSearch = '';
   eventos: Evento[] = [
     {
       id: '1',
