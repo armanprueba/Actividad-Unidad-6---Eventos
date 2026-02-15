@@ -33,5 +33,13 @@ export class EventosShow {
       price: 50,
       
     }
-  ]
+  ];
+  orderPrice(){
+    this.eventos = this.eventos.sort(function (a, b) {  return a.price - b.price;  });
+  };
+  orderDate(){
+  //Importante poner getTime para que TypeScript pueda comparar datos de tipo fecha
+
+    this.eventos = this.eventos.sort(function (a, b) {  return new Date(a.date).getTime() - new Date(b.date).getTime();  });
+  }
 }
