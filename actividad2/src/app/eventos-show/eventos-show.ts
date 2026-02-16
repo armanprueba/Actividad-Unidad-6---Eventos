@@ -12,6 +12,14 @@ import { EventoFilterPipe } from '../pipes/evento-filter-pipe';
 
 export class EventosShow {
   filterSearch = '';
+  newEvento: Evento = {
+        id: '',
+        title: '',
+        description: '',
+        image: '',
+        price: 0,
+        date: ''
+    };
   eventos: Evento[] = [
     {
       id: '1',
@@ -41,5 +49,25 @@ export class EventosShow {
   //Importante poner getTime para que TypeScript pueda comparar datos de tipo fecha
 
     this.eventos = this.eventos.sort(function (a, b) {  return new Date(a.date).getTime() - new Date(b.date).getTime();  });
+  }
+
+    addEvento() {
+
+    // Añadir el evento al array
+    this.eventos.push(this.newEvento);
+
+    // Reiniciar el formulario (opción 1: nuevo objeto vacío)
+    this.resetForm();
+  }
+
+    resetForm() {
+    this.newEvento = {
+      id: '',
+      title: '',
+      description: '',
+      image: '',
+      price: 0,
+      date: ''
+    };
   }
 }

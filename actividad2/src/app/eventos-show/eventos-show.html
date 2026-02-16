@@ -1,57 +1,77 @@
 <div class="card-block">
     @if(eventos && eventos.length) {
     <form class="form p-3 border-bottom">
-      <div class="form-group row">
-        <label class="col-form-label col-sm-2 text-sm-end"
-               for="filterDesc">Filtro:</label>
-        <div class="col-sm-5">
-          <input type="text"
-                 [(ngModel)]="filterSearch"
-                 class="form-control"
-                 name="filterDesc"
-                 id="filterDesc"
-                 placeholder="filtro...">
+        <div class="form-group row">
+            <label class="col-form-label col-sm-2 text-sm-end" for="filterDesc">Filtro:</label>
+            <div class="col-sm-5">
+                <input type="text" [(ngModel)]="filterSearch" class="form-control" name="filterDesc" id="filterDesc"
+                    placeholder="filtro...">
+            </div>
+            <label class="col-form-label col-sm-5">
+                Filtrando por: {{filterSearch}}</label>
         </div>
-        <label class="col-form-label col-sm-5">
-          Filtrando por: {{filterSearch}}</label>
-      </div>
     </form>
     <nav class="navbar navbar-light bg-light justify-content-between mt-3">
-    
-<div class="container-fluid">
-        
-<ul class="nav">
-            
-<li class="nav-item">
-                
-<a class="nav-link"
-                    
-href="#"
-                    
-(click)="orderDate()">Orden por fecha</a>
-            
-</li>
-            
-<li class="nav-item">
-                
-<a class="nav-link"
-                    
-href="#"
-                    
-(click)="orderPrice()">Orden por precio</a>
-            
-</li>
-        
-</ul>
-        
-    
-</div>
-</nav>
-<div class="mb-4 row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
-    
-<!-- (Aquí es donde se listan los eventos) -->
-</div>
-}
+
+        <div class="container-fluid">
+
+            <ul class="nav">
+
+                <li class="nav-item">
+
+                    <a class="nav-link" href="#" (click)="orderDate()">Orden por fecha</a>
+
+                </li>
+
+                <li class="nav-item">
+
+                    <a class="nav-link" href="#" (click)="orderPrice()">Orden por precio</a>
+
+                </li>
+
+            </ul>
+
+
+        </div>
+    </nav>
+    <div class="mb-4 row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
+
+        <!-- (Aquí es donde se listan los eventos) -->
+    </div>
+    }
+    <form class="mt-4" (ngSubmit)="addEvento()">
+    <div class="mb-3">
+        <label for="name" class="form-label">Nombre</label>
+        <input type="text" class="form-control"
+            name="title"
+            [(ngModel)]="newEvento.title"
+            placeholder="Enter name">
+    </div>
+    <div class="mb-3">
+        <label for="date">Fecha</label>
+        <input type="date" class="form-control" name="date">
+    </div>
+    <div class="mb-3">
+        <label for="description" class="form-label">Descripción</label>
+        <textarea class="form-control" name="description" rows="3"></textarea>
+    </div>
+    <div class="mb-3">
+        <label for="price" class="form-label">Precio</label>
+        <input type="number" class="form-control" name="price"
+            min="0.00" max="10000.00" step="0.01" />
+    </div>
+    <div class="mb-3">
+        <label for="image" class="form-label">Imagen</label>
+        <input type="file" class="form-control"
+            name="image"
+            #fileImage
+            (change)="changeImage(fileImage)">
+    </div>
+    <img [src]="newEvento.image" alt="" class="img-thumbnail">
+    <div class="mb-3">
+    <button type="submit" class="btn btn-primary">Create</button>
+    </div>
+</form>
 </div>
 <div class="mb-4 mt-4 row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
     @for(evento of eventos | eventoFilter:filterSearch; track evento.id){
