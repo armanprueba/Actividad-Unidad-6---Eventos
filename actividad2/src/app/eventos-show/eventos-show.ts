@@ -3,6 +3,7 @@ import { Evento } from '../intefaces/evento';
 import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { EventoFilterPipe } from '../pipes/evento-filter-pipe';
+import { ChangeDetectorRef } from '@angular/core';
 @Component({
   selector: 'app-eventos-show',
   imports: [DatePipe, FormsModule, EventoFilterPipe],
@@ -20,6 +21,7 @@ export class EventosShow {
         price: 0,
         date: ''
     };
+  constructor(private cdr: ChangeDetectorRef) {}
   eventos: Evento[] = [
     {
       id: '1',
@@ -60,7 +62,7 @@ export class EventosShow {
     this.resetForm();
   }
 
-    resetForm() {
+  resetForm() {
     this.newEvento = {
       id: '',
       title: '',
@@ -70,4 +72,14 @@ export class EventosShow {
       date: ''
     };
   }
+  
+changeImage(fileInput: HTMLInputElement) {
+    if (!fileInput.files || fileInput.files.length === 0) { return; }
+    const reader: FileReader = new FileReader();
+    reader.readAsDataURL(fileInput.files[0]);
+    reader.addEventListener('loadend', () => {
+        this.newEvento.image = reader.result as string;
+        this.cdr.detectChanges();
+    });
+}
 }
